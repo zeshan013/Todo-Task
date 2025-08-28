@@ -1,7 +1,13 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-export type ToDoStatusType = "completed" | "pending" 
+
+
+// Types
+export type UserStatusType = "active" | "in-active" 
+
+
+// Schemas
 @Entity()
-export class ToDo {
+export class User {
 
     @PrimaryGeneratedColumn()
     id: number
@@ -9,20 +15,17 @@ export class ToDo {
     @Column()
     name: string
 
-    @Column()
-    user_id: string
-
     @Column({ type: "varchar", length: 255 })
     email: string
 
     @Column({ type: "varchar", length: 255 })
-    title:string
+    password:string
 
     @Column({
         type: "enum",
-        enum: ["completed", "pending"],
-        default: "pending"
+        enum: ["active", "in-active"],
+        default: "active"
     })
-    status: ToDoStatusType
+    status: UserStatusType
 
 }

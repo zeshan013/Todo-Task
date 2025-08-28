@@ -1,19 +1,13 @@
-import { AppDataSource } from "../data-source.js"
+import { AppDataSource } from "../../data-source.js"
 import { NextFunction, Request, Response } from "express"
-import { ToDo } from "../entity/todo.js";
-import * as z from "zod";
+import { Todo } from "./entity.js";
+import { todoSchema } from "./zod-validator.js";
 
-const todo = z.object({
-    name: z.string(),
-    user_id: z.string(),
-    email: z.string(),
-    title: z.string(),
-    status: z.enum(["completed", "pending"]).optional()
-});
+
 
 export class ToDoController {
 
-    private repo = AppDataSource.getRepository(ToDo)
+    private repo = AppDataSource.getRepository(Todo)
     
     async all(request: Request, res: Response, next: NextFunction) {
         try {
@@ -22,11 +16,11 @@ export class ToDoController {
             if (!todos)  
                 res
                 .status(204)
-                .json({ message: "No ToDo Found", data: todos });
+                .json({ message: "No Todo Found", data: todos });
  
             res
             .status(200)
-            .json({ message: "All ToDo Successfully Retrived", data: todos })
+            .json({ message: "All Todo Successfully Retrived", data: todos })
             
         } catch (error) { 
             res
@@ -46,7 +40,7 @@ export class ToDoController {
             let tdr = this.repo
 
             //validation 
-            const uId = todo.pick({ user_id })
+            const uId = todoSchema.pick({ userId: true })
             const vd = uId.safeParse({ user_id })
             if (!vd.success) res.status(400).json({ message: `${z.prettifyError(vd.error)}` })
 
@@ -63,7 +57,7 @@ export class ToDoController {
                 }
                 res.status(200).type('text').send(csvString)
             } else {
-                res.status(400).json({ message: "No ToDo Found" })
+                res.status(400).json({ message: "No Todo Found" })
             }
 
         } catch (error) { res.status(400).json({ message: error.message }) }

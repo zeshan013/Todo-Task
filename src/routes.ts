@@ -1,4 +1,4 @@
-import { ToDoController } from "./controller/ToDoController.js"
+import { ToDoController } from "./controller/todo/controller.js"
 
 export const Routes =
 [
