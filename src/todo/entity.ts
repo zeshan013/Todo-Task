@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
-import { User } from "../user/entity";
+import { User } from "../user/entity.js";
 
 
 // Types
@@ -14,14 +14,17 @@ export class Todo {
     id: number
 
     @Column()
-    name: string
+    title: string
+
+    @Column({ nullable: true })
+    userId: number;
 
     @ManyToOne(() => User)
-    @JoinColumn({name: "userId"})
-    userId: User
+    @JoinColumn({ name: "userId" })
 
-    @Column({ type: "varchar", length: 255 })
-    title:string
+    
+    @Column({ type: "varchar", length: 1000 })
+    description:string
 
     @Column({
         type: "enum",
