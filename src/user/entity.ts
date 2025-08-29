@@ -1,9 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column ,OneToMany} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import { Todo } from "../todo/entity.js";
 
 
 // Types
-export type UserStatusType = "active" | "in-active" 
+export type UserStatusType = "active" | "in-active"
 
 
 // Schemas
@@ -20,7 +20,7 @@ export class User {
     email: string
 
     @Column({ type: "varchar", length: 255 })
-    password:string
+    password: string
 
     @Column({
         type: "enum",

@@ -1,29 +1,30 @@
 import { NextFunction, Request, Response } from "express";
-import { todoSchema as schema} from "./zod-validator.js";
+import { todoSchema as schema } from "./zod-validator.js";
 import { reAssignSchema as reAssign } from "./zod-validator.js";
 import * as z from "zod";
 
 
 
-export async function  todoValidate(req: Request, res: Response, next: NextFunction) {
+export async function todoValidate(req: Request, res: Response, next: NextFunction) {
     try {
         //vars
-        const {  userId, description,title, status } = req.body
+        const { userId, description, title, status } = req.body
 
+        //validation
         const vd = schema.safeParse({ title, description, userId, status });
 
-        if (!vd.success) {
-            res
-                .status(400)
-                .json({ message: `${z.prettifyError(vd.error)}` })
-        } else {
-            next()
-        }
+        if (!vd.success)
+            return res
+            .status(400)
+            .json({ message: z.prettifyError(vd.error) })
+
+        next()
+
 
     } catch (e) {
-        res
-            .status(400)
-            .json({ message: e.message })
+        return res
+        .status(400)
+        .json({ message: e.message })
     }
 
 }
@@ -33,18 +34,19 @@ export async function reAssignValidate(req: Request, res: Response, next: NextFu
     try {
         //vars
         const { todoId, originalUserId: oldId, newUserId: newId } = req.body;
-        
-        const vd = reAssign.safeParse({ tId:todoId,oId:oldId,nId:newId});
-        
-        if (!vd.success) 
-            res
+
+        //validation
+        const vd = reAssign.safeParse({ tId: todoId, oId: oldId, nId: newId });
+
+        if (!vd.success)
+            return res
             .status(400)
-            .json({ message: `${z.prettifyError(vd.error)}` })
-        else 
-            next()
-        
+            .json({ message: z.prettifyError(vd.error) })
+
+        next()
+
     } catch (e) {
-        res
+        return res
         .status(400)
         .json({ message: e.message })
     }

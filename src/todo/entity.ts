@@ -3,7 +3,7 @@ import { User } from "../user/entity.js";
 
 
 // Types
-export type TodoStatusType = "completed" | "pending" 
+export type TodoStatusType = "completed" | "pending"
 
 
 // Schemas
@@ -22,9 +22,8 @@ export class Todo {
     @ManyToOne(() => User)
     @JoinColumn({ name: "userId" })
 
-    
     @Column({ type: "varchar", length: 1000 })
-    description:string
+    description: string
 
     @Column({
         type: "enum",
