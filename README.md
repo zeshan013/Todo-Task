@@ -1,8 +1,9 @@
-# Awesome Project Build with TypeORM
+# Awesome Project ToDo along clean and perfect structure
 
 Steps to run this project:
 
-1. Run `npm i` command
-2. Setup database settings inside `data-source.ts` file
-3. Run `npm start` command
+1.Install docker desktop
+2.Start docker desktop 
+3.From your cloned project run this command `docker-compose up -d`
+
 "# Todo-Task" 
