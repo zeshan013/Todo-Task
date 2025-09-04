@@ -1,4 +1,4 @@
-# Awesome Project ToDo along clean and perfect structure
+# Awesome Project ToDo along clean code and perfect structure
 
 Steps to run this project:
 1. Install docker desktop
